@@ -1,11 +1,23 @@
 package co.edu.ue.services;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Ordenamiento {
 
     public int count = 0;
+
+    public boolean isOrdered(List<Integer> lista, boolean descendant){
+        boolean isOrdered;
+        if(descendant){
+            isOrdered = lista.stream().sorted(Comparator.reverseOrder()).toList().equals(lista);
+        } else {
+            isOrdered = lista.stream().sorted().toList().equals(lista);
+        }
+        return isOrdered;
+    }
 
     public List<Integer> algoritmoSeleccion(List<Integer> listaDesordenada, boolean descendant) {
         System.out.println("Algoritmo selección");
@@ -102,10 +114,11 @@ public class Ordenamiento {
                     }
                 }
             }
-            if (i == listaDesordenada.size() - 1) {
+            if (isOrdered(listaDesordenada, descendant)) {
                 System.out.println("\nNo hay más cambios por hacer.");
                 System.out.println("--------------------------------------");
                 System.out.println("Lista ordenada " + (descendant ? "descendente: " : "ascendente: ") + listaDesordenada);
+                break;
             }
         }
         return listaDesordenada;
@@ -157,24 +170,39 @@ public class Ordenamiento {
         int salto = listaDesordenada.size();
         int aux;
         for (int i = 0; i < listaDesordenada.size(); i++) {
-            if (salto > 1) salto /= 2;
+            if (salto > 1){
+                salto /= 2;
+                System.out.println("Salto: " + salto);
+            }
             for (int j = 0; j < listaDesordenada.size(); j++) {
                 aux = listaDesordenada.get(j);
                 if ((j + salto) < listaDesordenada.size()) {
+                    System.out.print(" * Comparando " + aux + " con " + listaDesordenada.get(j + salto));
                     if (descendant) {
                         if (aux < listaDesordenada.get(j + salto)) {
+                            System.out.print(", cambian.\n");
                             listaDesordenada.set(j, listaDesordenada.get(j + salto));
                             listaDesordenada.set((j + salto), aux);
-                            System.out.println("Ordenando con salto = " + salto + ": " + listaDesordenada + " ~ PASADA NUMERO: " + (i + 1));
+                            System.out.println("Reordenando: " + listaDesordenada);
+                        } else {
+                            System.out.print(", no cambian.\n");
                         }
                     } else {
                         if (aux > listaDesordenada.get(j + salto)) {
+                            System.out.print(", cambian.\n");
                             listaDesordenada.set(j, listaDesordenada.get(j + salto));
                             listaDesordenada.set((j + salto), aux);
-                            System.out.println("Ordenando con salto = " + salto + ": " + listaDesordenada + " ~ PASADA NUMERO: " + (i + 1));
+                            System.out.println("Reordenando: " + listaDesordenada);
+                        } else{
+                            System.out.print(", no cambian.\n");
                         }
                     }
                 }
+
+            }
+            if(isOrdered(listaDesordenada, descendant)){
+                System.out.println("\nNo hay mas cambios. ");
+                break;
             }
         }
         System.out.println("------------------------------------------------");

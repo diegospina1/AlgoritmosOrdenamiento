@@ -27,7 +27,7 @@ public class Main {
 //        System.out.println("\nPRIMERA LISTA");
 //        System.out.println("SELECCIÓN ----\n");
 
-        ordenamiento.algoritmoSeleccion(firstList, false);
+//        ordenamiento.algoritmoSeleccion(firstList, false);
 //        System.out.println();
 //        ordenamiento.algoritmoSeleccion(firstList, true);
 
@@ -45,7 +45,7 @@ public class Main {
 //
 //        System.out.println("\nSHELL ----\n");
 //
-//        ordenamiento.algoritmoShell(firstList, false);
+        ordenamiento.algoritmoShell(firstList, false);
 //        System.out.println();
 //        ordenamiento.algoritmoShell(firstList, true);
 //
