@@ -24,12 +24,12 @@ public class Main {
         List<Integer> fourthList = Arrays.asList(fourth);
 
         //Punto 1 (Array 1: {40, 21, 4, 9, 10, 35})
-        System.out.println("\nPRIMERA LISTA");
-        System.out.println("SELECCIÓN ----\n");
+//        System.out.println("\nPRIMERA LISTA");
+//        System.out.println("SELECCIÓN ----\n");
 
-//        ordenamiento.algoritmoSeleccion(firstList, false);
-        System.out.println();
-        ordenamiento.algoritmoSeleccion(firstList, true);
+        ordenamiento.algoritmoSeleccion(firstList, false);
+//        System.out.println();
+//        ordenamiento.algoritmoSeleccion(firstList, true);
 
 //        System.out.println("\nBURBUJA ----\n");
 //

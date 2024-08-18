@@ -7,32 +7,6 @@ public class Ordenamiento {
 
     public int count = 0;
 
-    public void imprimirCambios(List<Integer> list, Integer j, Integer target) {
-        int finalJ = j;
-        int finalTarget = target;
-
-        System.out.print(" [");
-        list.stream().forEach(c -> {
-            if (c.equals(list.get(finalJ))) {
-                if (c.equals(list.getFirst())) {
-                    System.out.print(list.get(finalTarget));
-                } else {
-                    System.out.print(", " + list.get(finalTarget));
-                }
-            } else if (c.equals(list.get(finalTarget))) {
-                System.out.print(", " + list.get(finalJ));
-            } else {
-                if (c.equals(list.getFirst())) {
-                    System.out.print(c);
-                } else {
-                    System.out.print(", " + c);
-                }
-            }
-        });
-        System.out.print("]");
-
-    }
-
     public List<Integer> algoritmoSeleccion(List<Integer> listaDesordenada, boolean descendant) {
         System.out.println("Algoritmo selección");
         System.out.println("Lista inicial: " + listaDesordenada);
@@ -43,32 +17,49 @@ public class Ordenamiento {
         int j;
         for (int i = 0; i < listaDesordenada.size(); i++) {
             target = i;
+            if (i != listaDesordenada.size() - 1) {
+                System.out.println("Lista a evaluar: " + listaDesordenada);
+                System.out.println("Elemento a evaluar: " + listaDesordenada.get(i));
+            }
             for (j = i + 1; j < listaDesordenada.size(); j++) {
                 //Condicion para saber si la lista se pide descendente o ascendente.
-                System.out.print("\nSe compara el " + listaDesordenada.get(j) + " con " + listaDesordenada.get(target) + ", ");
+                System.out.print(" * Se compara con " + listaDesordenada.get(j) + ", ");
                 if (descendant) {
                     if (listaDesordenada.get(j) > listaDesordenada.get(target)) {
                         target = j;
-                        System.out.print("nuevo valor mayor: " + listaDesordenada.get(target));
+                        System.out.print("nuevo valor mayor: " + listaDesordenada.get(target) + "\n");
+                        if (j != listaDesordenada.size() - 1) {
+                            System.out.print("Elemento a evaluar: " + listaDesordenada.get(target));
+                            System.out.println();
+                        }
                     } else {
-                        System.out.print("no hay cambios.");
+                        System.out.print("no hay cambios.\n");
                     }
                 } else {
                     if (listaDesordenada.get(j) < listaDesordenada.get(target)) {
                         target = j;
+                        System.out.print("nuevo valor menor: " + listaDesordenada.get(target) + "\n");
+                        if (j != listaDesordenada.size() - 1) {
+                            System.out.print("Elemento a evaluar: " + listaDesordenada.get(target));
+                            System.out.println();
+                        }
+                    } else {
+                        System.out.print("no hay cambios.\n");
                     }
                 }
             }
-            if(listaDesordenada.get(target) != listaDesordenada.get(i)){
-                System.out.println("\n~ Valor a cambiar: " +  listaDesordenada.get(target) + " con " + listaDesordenada.get(i));
+            if (listaDesordenada.get(target) != listaDesordenada.get(i)) {
+                System.out.println("~ Valor a cambiar: " + listaDesordenada.get(target) + " con " + listaDesordenada.get(i) + "\n");
+            } else {
+                System.out.println();
             }
-
             aux = listaDesordenada.get(i);
             listaDesordenada.set(i, listaDesordenada.get(target));
             listaDesordenada.set(target, aux);
             //Imprimimos las listas y su ordenamiento en cada pasada.
             if (i == listaDesordenada.size() - 1) {
-                System.out.println("\n--------------------------------------");
+                System.out.println("No hay más cambios a realizar.");
+                System.out.println("--------------------------------------");
                 System.out.println("Lista ordenada " + (descendant ? "descendente: " : "ascendente: ") + listaDesordenada);
             }
         }
@@ -82,26 +73,37 @@ public class Ordenamiento {
         System.out.println("--------------------------------------");
         int aux;
         for (int i = 0; i < listaDesordenada.size(); i++) {
+            if (i != listaDesordenada.size() - 1) {
+                System.out.println("Lista a evaluar: " + listaDesordenada);
+            }
             for (int j = 0; j < (listaDesordenada.size() - i); j++) {
                 if ((j + 1) < listaDesordenada.size()) {
+                    System.out.print(" * Comparando " + listaDesordenada.get(j) + " con " + listaDesordenada.get(j + 1) + ", ");
                     if (descendant) {
                         if (listaDesordenada.get(j + 1) > listaDesordenada.get(j)) {
+                            System.out.print("cambian\n");
                             aux = listaDesordenada.get(j + 1);
                             listaDesordenada.set(j + 1, listaDesordenada.get(j));
                             listaDesordenada.set(j, aux);
-                            System.out.println("Pasada " + (i + 1) + ": " + listaDesordenada);
+                            System.out.println("~ Cambios: " + listaDesordenada);
+                        } else {
+                            System.out.print("no cambian\n");
                         }
                     } else {
                         if (listaDesordenada.get(j + 1) < listaDesordenada.get(j)) {
+                            System.out.print("cambian\n");
                             aux = listaDesordenada.get(j + 1);
                             listaDesordenada.set(j + 1, listaDesordenada.get(j));
                             listaDesordenada.set(j, aux);
-                            System.out.println("Pasada " + (i + 1) + ": " + listaDesordenada);
+                            System.out.println("~ Cambios: " + listaDesordenada);
+                        } else {
+                            System.out.print("no cambian\n");
                         }
                     }
                 }
             }
             if (i == listaDesordenada.size() - 1) {
+                System.out.println("\nNo hay más cambios por hacer.");
                 System.out.println("--------------------------------------");
                 System.out.println("Lista ordenada " + (descendant ? "descendente: " : "ascendente: ") + listaDesordenada);
             }
