@@ -1,9 +1,7 @@
 package co.edu.ue.services;
 
 import java.sql.SQLOutput;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class Ordenamiento {
 
@@ -123,45 +121,65 @@ public class Ordenamiento {
         }
         return listaDesordenada;
     }
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
     public List<Integer> algoritmoInsercionDirecta(List<Integer> listaDesordenada, boolean descendant) {
         System.out.println("Algoritmo inserción directa");
         System.out.println("Lista inicial: " + listaDesordenada);
         System.out.println("--------------------------------------");
         int aux;
         int j;
+        List<Integer> a = new ArrayList<>();
+        List<Integer> d = new ArrayList<>();
         for (int i = 0; i < listaDesordenada.size(); i++) {
             aux = listaDesordenada.get(i);
+            int p = 0;
+            if (aux != 0 && p != aux) {
+                    p = p + aux;
+                    a.add(p);
+                    d.add(p);
+            }
             for (j = i - 1; j >= 0; j--) {
                 if ((j + 1) < listaDesordenada.size()) {
-                    if (descendant) {
+                    if (descendant)
+                    {
                         if (aux < listaDesordenada.get(j)) {
                             listaDesordenada.set((j + 1), aux);
                             break;
-                        } else {
+                        } else
+                        {
                             listaDesordenada.set((j + 1), listaDesordenada.get(j));
                         }
-                    } else {
+                        } else {
                         if (aux > listaDesordenada.get(j)) {
                             listaDesordenada.set((j + 1), aux);
                             break;
-                        } else {
+                        } else
+                        {
                             listaDesordenada.set((j + 1), listaDesordenada.get(j));
                         }
                     }
                 }
             }
-            if (j == -1) {
-                listaDesordenada.set(0, aux);
-            }
-            System.out.println("Ordenando el " + aux + ": " + listaDesordenada);
+                Collections.sort(a);
+                d.sort((e, b) -> b - e);
+
+                if (j == -1) {
+                    listaDesordenada.set(0, aux);
+                }
+                if (descendant) {
+                    System.out.println("Ordenando el " + aux + ": " + listaDesordenada + "\n Ahora la sublista ordenada es: " + d);
+                }else {
+                    System.out.println("Ordenando el " + aux + ": " + listaDesordenada + "\n Ahora la sublista ordenada es: " + a);
+                }
+
         }
-        System.out.println("--------------------------------------");
-        System.out.println("Lista ordenada " + (descendant ? "descendente: " : "ascendente: ") + listaDesordenada);
+                System.out.println("--------------------------------------");
+                System.out.println("Lista ordenada " + (descendant ? "descendente: " : "ascendente: ") + listaDesordenada);
+
 
         return listaDesordenada;
     }
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public List<Integer> algoritmoShell(List<Integer> listaDesordenada, boolean descendant) {
         System.out.println("Algoritmo Shell");
         System.out.println("Lista inicial: " + listaDesordenada);
